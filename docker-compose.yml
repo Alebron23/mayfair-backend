@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  node_v14_test:
+    build:
+      context: .
+      dockerfile: Dockerfile
