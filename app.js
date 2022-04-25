@@ -19,12 +19,14 @@ var assetsRouter = require("./routes/assets");
 var app = express();
 const port = process.env.PORT || 9000;
 const whitelist = ["http://localhost:3000", "https://www.mayfairmotorco.com"];
+
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
     origin: function (origin, callback) {
+      console.log(whitelist, "--", origin);
       if (whitelist.indexOf(origin) !== -1 || !origin) {
         callback(null, true);
       } else {
@@ -38,6 +40,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+console.log("JAFFER");
 mongoose
   .connect(
     process.env.MONGO_URI,
@@ -123,3 +126,5 @@ app.use("/vehicles", vehiclesRouter);
 app.use("/assets", assetsRouter);
 
 module.exports = app;
+
+// MONGO_URI=mongodb+srv://synthetix-mayfair:takG-nJ4A*ecZJHzwf@cluster0.1hdgm.mongodb.net/mayfairdb-photos
